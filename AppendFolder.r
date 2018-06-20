@@ -1,12 +1,10 @@
 # Carga en un solo dataset todos los archivos de cierta extension dentro de una caperta especificada
 
-Cargar.Datos<-function (carpeta, extension="csv", exhaustivo=F, n_ultimos=0, ordenado=T, 
-                        ausentes=getOption("datatable.na.strings","NA"), separador=","){
+Cargar.Datos<-function (carpeta, extension="csv", exhaustivo=F, n_ultimos=0, ordenado=T, ausentes=getOption("datatable.na.strings","NA"), 
+                        separador="auto", dec=".", quote="\"", header="auto"){
     
-    require("data.table")
-    
-    if(ordenado) file.list <- paste0(folder,"/",list.files(folder, pattern = paste0("+.",extension), recursive = F))
-    else file.list <- sort(paste0(folder,"/",list.files(folder, pattern = paste0("+.",extension), recursive = F)))
+    if(ordenado) file.list <- paste0(carpeta,"/",list.files(carpeta, pattern = paste0("+.",extension), recursive = F))
+    else file.list <- sort(paste0(carpeta,"/",list.files(carpeta, pattern = paste0("+.",extension), recursive = F)))
     m=length(file.list)
     n=ifelse((n_ultimos>=m| n_ultimos<1),1, m-(n_ultimos-1))
     
@@ -16,7 +14,7 @@ Cargar.Datos<-function (carpeta, extension="csv", exhaustivo=F, n_ultimos=0, ord
     print(file.list)
     Union <- do.call("rbind",
                      lapply(file.list, FUN = function(file) {
-                         fread(file, sep=separador,
+                         fread(file, sep=separador, dec=dec, quote=quote, header = header,
                                na.strings = ausentes,
                                col.names = names(fread(file.list[1], nrows = 1))
                          )}
