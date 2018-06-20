@@ -1,6 +1,7 @@
 # Carga en un solo dataset todos los archivos de cierta extension dentro de una caperta especificada
 
-Cargar.Datos<-function (carpeta, extension="csv", exhaustivo=F, n_ultimos=0, ordenado=T, ausentes, separador=","){
+Cargar.Datos<-function (carpeta, extension="csv", exhaustivo=F, n_ultimos=0, ordenado=T, 
+                        ausentes=getOption("datatable.na.strings","NA"), separador=","){
     
     require("data.table")
     
