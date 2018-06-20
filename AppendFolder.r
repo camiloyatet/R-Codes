@@ -2,6 +2,8 @@
 
 Cargar.Datos<-function (carpeta, extension="csv", exhaustivo=F, n_ultimos=0, ordenado=T, ausentes, separador=","){
     
+    require("data.table")
+    
     if(ordenado) file.list <- paste0(folder,"/",list.files(folder, pattern = paste0("+.",extension), recursive = F))
     else file.list <- sort(paste0(folder,"/",list.files(folder, pattern = paste0("+.",extension), recursive = F)))
     m=length(file.list)
